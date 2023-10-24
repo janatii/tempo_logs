@@ -1,5 +1,5 @@
 import holidays
-from conf import full_name, token, team_number, issue_id
+from conf import full_name, tempo_token, team_number, issue_id
 
 from tempoapiclient import client_v4
 from datetime import timedelta, date
@@ -11,7 +11,7 @@ holidays = holidays.country_holidays('MA')
 
 
 
-def get_tempo_authenticated_client():
+def get_tempo_authenticated_client(token):
     return client_v4.Tempo(auth_token=token)
 
 def get_myaccount_id(tempo):
@@ -43,7 +43,7 @@ def get_start_and_end_dates(month_no):
 if __name__ ==  '__main__':
 
     res = []
-    tempo = get_tempo_authenticated_client()
+    tempo = get_tempo_authenticated_client(tempo_token)
     account_id = get_myaccount_id(tempo)
     start_date, end_date = get_start_and_end_dates(month_no=month_no)
     for single_date in daterange(start_date, end_date):
